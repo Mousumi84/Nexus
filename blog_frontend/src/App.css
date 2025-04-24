@@ -1,0 +1,188 @@
+* {
+    margin: 0%;
+}
+body {
+    background-color: black;
+}
+
+.michroma-regular {
+    font-family: "Michroma", serif;
+}
+.monoton-regular {
+    font-family: "Monoton", serif;
+}
+
+#home {
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        background-color: rgb(135, 81, 241);
+        border-bottom: solid 3px rgba(196, 196, 196, 0.471);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-inline: 15px;
+        width: 100%;
+        height: 45px;
+
+        img {
+            height: 100%;
+        }
+
+        #item-box {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 60%;
+            
+            #logout-nav {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 100%;
+        
+            
+                #items {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: end;
+                    width: 80%;
+                     
+                    div {
+                        display: flex;
+                        gap: 10px;
+                    }
+    
+                }
+            }
+        }
+
+        div {
+            color: white;
+            font-size: small;
+        }
+    }
+    @media screen and (max-width: 960px) {
+        
+        .it-txt {
+            display: none;
+        }
+
+    }
+
+    #outlet1 {
+        position: absolute;
+        top: 45px;
+        width: 100%;
+        height: fit-content;
+        background-image:linear-gradient(rgb(135, 81, 241) 5%,rgb(135, 81, 241) 5%, rgb(135, 81, 241) 10%, transparent 40%, transparent 80%);
+        background-attachment: fixed;
+    }
+
+
+    #frontPage {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 90px;
+
+        #vd-ls {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5%;
+        }
+        span {
+            font-size: 30px;
+            font-weight: 500;
+            background: linear-gradient(90deg, black,rgb(33, 8, 89),rgb(71, 27, 166),rgb(117, 62, 237) ); /*red, orange, yellow, green, blue, indigo, violet*/
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            div {
+                font-size: 35px;
+                font-weight: 500;
+    
+            }
+        }
+
+        video {
+           /* height: 100%;*/
+            width: 60%;
+        }
+
+        #outlet2 {
+            width: 35%;
+        }
+        
+
+        @media screen and (max-width: 1267px) {
+            video {
+                width: 90%;
+            }
+
+            #outlet2 {
+                width: 60%;
+            }
+        }
+    }
+
+    .box {
+        display: flex;
+        justify-content: center;
+        gap: 300px;
+        margin-top: 100px;
+
+        .form {
+            border: solid 3px rgba(188, 188, 188, 0.693);
+            border-radius: 15px;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        h3 {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 900;
+            color: rgba(134, 81, 241, 0.474);
+        }
+
+    }
+
+    #srch-usr-box {
+        height: 500px;
+        width: 60%;
+        position: fixed;
+        top: 45px;
+        left: 20%;
+        z-index: 10;
+        border: solid 1px white;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.691);
+        backdrop-filter: blur(7px);
+        padding: 3%;
+
+        .usr-dtl {
+            background-color: white;
+            border: solid 1px white;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10%;
+        }
+
+    }
+}
