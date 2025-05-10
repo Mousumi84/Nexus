@@ -25,10 +25,10 @@ const parmanentlyDelete = require("./Cron.js");
 
 
 //middleware  
-app.use(cors());    /*    {
-    origin: 'https://localhost:3000',                 //'https://post-application-nexus-1oxr-otuh93o8q-mousumi-das-projects.vercel.app',
+app.use(cors( {
+    origin: 'https://nexus-five-chi.vercel.app',
     credentials: true
-}  */
+}));  
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(
