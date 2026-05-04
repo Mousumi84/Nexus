@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
-import { Avatar } from "antd";
+import { Avatar, message } from "antd";
 
 export function Navbar() {
   const [searchedUser, setSearchedUser] = useState([]);
@@ -30,13 +30,13 @@ export function Navbar() {
       });
 
       if (response.data.status !== 200) {
-        alert(response.data.message);
+        message.error(response.data.message);
         return;
       }
 
       setSearchedUser(response.data.UsersDb);
     } catch (error) {
-      alert("search Failed due to some error");
+      message.error("search Failed due to some error");
     }
   };
 
