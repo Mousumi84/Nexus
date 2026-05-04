@@ -4,16 +4,21 @@ import './LoginRoutes.css';
 import './UserAccount.css';
 import { createContext, lazy, Suspense, useEffect, useState } from 'react';
 import { Spin } from 'antd';
-import { Home } from './Components/AuthRoutes/Home';
-import { FrontPage } from './Components/AuthRoutes/FrontPage';
+import { Navbar } from './Components/AuthRoutes/Navbar';
+import { LandingPage } from './Pages/NotLoginPages/LandingPage';
 
 
 let Login=lazy(() => import('./Components/AuthRoutes/Login'));
 let Signup=lazy(() => import('./Components/AuthRoutes/Signup'));
-let Profile=lazy(() => import('./Components/LoginRoutes/Profile'));
-let Dashboard=lazy(() => import('./Components/LoginRoutes/Dashboard'));
-let UserAccount=lazy(() => import('./Components/LoginRoutes/UserAccount'));
-let PrivateRoute=lazy(() => import('./Components/LoginRoutes/PrivateRoute'));
+let ForgetPassword=lazy(() => import('./Components/AuthRoutes/ForgetPassword'));
+let Profile=lazy(() => import('./Pages/LoginPages/Profile'));
+let Dashboard=lazy(() => import('./Pages/LoginPages/Dashboard'));
+let UserAccount=lazy(() => import('./Pages/LoginPages/UserAccount'));
+let PrivateRoute=lazy(() => import('./Pages/LoginPages/PrivateRoute'));
+let Home=lazy(() => import('./Pages/NotLoginPages/HomePage'));
+let Support=lazy(() => import('./Pages/NotLoginPages/SupportPage'));
+let Download=lazy(() => import('./Pages/NotLoginPages/DownloadPage'));
+let Help=lazy(() => import('./Pages/NotLoginPages/HelpPage'));
 
 
 export const details=createContext();
@@ -45,15 +50,22 @@ function App() {
         <div className="App michroma-regular">
             <BrowserRouter>
                 <Routes>
-                    <Route path='' Component={Home}>
-                        <Route path='/' Component={FrontPage}>
+                    <Route path='' Component={Navbar}>
+                        <Route path='/' Component={LandingPage}>
                             <Route path='/signup' element={ <Suspense fallback={<Spin size="large" />}>
                                                                 <Signup />
                                                             </Suspense> }/>
                             <Route path='/' element={   <Suspense fallback={<Spin size="large" />}>
                                                             <Login />
                                                         </Suspense> }/>
+                            <Route path='/forgotpassword' element={ <Suspense fallback={<Spin size="large" />}>
+                                                                    <ForgetPassword />
+                                                                </Suspense> }/>
                         </Route>
+                        <Route path='/home' Component={Home} />
+                        <Route path='/support' Component={Support} />
+                        <Route path='/download' Component={Download} />
+                        <Route path='/help' Component={Help} />
                         <Route path='/dashboard' element={  <PrivateRoute>
                                                                 <Dashboard />
                                                             </PrivateRoute> } />

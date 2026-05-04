@@ -10,13 +10,11 @@ const AuthModel = class{
     image;
 
     constructor({name,username,email,password,image}) {
-
         this.name=name;
         this.username=username;
         this.email=email;
         this.password=password;
         this.image=image;
-
     }
 
     
@@ -61,6 +59,42 @@ const AuthModel = class{
                     reject("Username already registered");
 
                 resolve();
+            } catch (error) {
+                reject(error);   
+            }
+        });
+    }
+
+    static confirmEmailandUsername({username, email}) {
+        return new Promise(async (resolve,reject) => {
+             
+            // Check if Email,Username exist in DB
+            try {
+                const userDbExist = await UserSchema.findOne({ username : username });
+                
+
+                if(userDbExist && userDbExist.email === email) 
+                    resolve(userDbExist);
+
+                reject({
+                    status: 400,
+                    message: "Invalid username or email"
+                });
+            } catch (error) {
+                reject(error);   
+            }
+        });
+    }
+
+    static changePassword({userId, newPassword}) {
+        return new Promise(async (resolve,reject) => {
+             
+            const hashpassword = await bcrypt.hash(newPassword,Number(process.env.SALT));
+
+            try {
+                const userDbExist = await UserSchema.findByIdAndUpdate(userId, { password: hashpassword }, { new: true }).select("+password");
+                
+                resolve(userDbExist);
             } catch (error) {
                 reject(error);   
             }

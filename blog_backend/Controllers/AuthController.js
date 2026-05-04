@@ -20,10 +20,10 @@ const upload = multer({ storage: storage });
 
 
 const registerController = async (req,res) => {
-    console.log("register");
+    console.log("register",req);
 
     const {name,username,email,password}=req.body;
-    let image=req.file.path;
+    let image=req?.file?.path || null;
     console.log(image);
 
     //Data validation
@@ -37,7 +37,6 @@ const registerController = async (req,res) => {
             error:error,
         });
     }
-
 
     const User = new AuthModel({name,username,email,password,image});
 
@@ -73,33 +72,11 @@ const registerController = async (req,res) => {
 
 
 
-const displaySarchedUsersController = async (req,res) => {
-    const searchTerm=req.query.search;
-    
-    // get searched the users 
-    try {
-        const UsersDb = await AuthModel.searchUser({searchTerm});
-    
-        return res.send({
-            status:200,
-            message:"Read All Users",
-            UsersDb
-        });
-    } catch (error) {
-        return res.send({
-            status:500,
-            message:"Search failedr",
-            error:error,
-        });
-    }
-
-}
-
-
 
 const loginController = async (req,res) => {
     console.log("login");
     const {userId,password}=req.body;
+    console.log("userId => ",userId,password);
 
     //Data Validation
     if(!userId || !password) {
@@ -118,6 +95,7 @@ const loginController = async (req,res) => {
         
         //Compare password
         const passwordCompare = await bcrypt.compare(password,loginData.password);
+        console.log(passwordCompare)
 
 
         if(!passwordCompare) {
@@ -156,6 +134,89 @@ const loginController = async (req,res) => {
         });
     }
 }
+
+
+
+
+const forgetPasswordController = async (req,res) => {
+    console.log("forget password");
+    const {username,email}=req.body;
+
+    //Find User by usernmae,email
+    try {
+        const confirmationData = await AuthModel.confirmEmailandUsername({username, email}); 
+        console.log("confirmationData =>",confirmationData);
+
+        const jwtToken=jwt.sign({data:confirmationData},process.env.SECRET_KEY);
+
+        return res.send({
+            status:200,
+            message:"Confirmation Successfull",
+            jwtToken,
+        });
+        
+    } catch (error) {
+        return res.send({
+            status: error.status || 500,
+            message: error.message || "Internal Server Error"
+        });
+    }
+}
+
+
+
+
+const changePasswordController = async (req,res) => {
+    console.log("change password");
+    const { jwttoken,password}=req.body;
+
+    //Find User by usernmae,email
+    try {
+        const decoded=jwt.verify(jwttoken,process.env.SECRET_KEY);
+        console.log("decoded => ",decoded);
+
+        const changePasswordData = await AuthModel.changePassword({userId: decoded.data._id, newPassword: password});
+
+        return res.send({
+            status:200,
+            message:"Password Changed Successfull",
+            data: changePasswordData,
+        });
+        
+    } catch (error) {
+        console.log("error => ",error);
+        return res.send({
+            status: error.status || 500,
+            message: error.message || "Internal Server Error"
+        });
+    }
+}
+
+
+
+
+const displaySarchedUsersController = async (req,res) => {
+    const searchTerm=req.query.search;
+    
+    // get searched the users 
+    try {
+        const UsersDb = await AuthModel.searchUser({searchTerm});
+    
+        return res.send({
+            status:200,
+            message:"Read All Users",
+            UsersDb
+        });
+    } catch (error) {
+        return res.send({
+            status:500,
+            message:"Search failedr",
+            error:error,
+        });
+    }
+
+}
+
 
 
 
@@ -209,6 +270,4 @@ const logoutFromAllDvController= async (req,res) => {
 
 
 
-module.exports = { upload,registerController,loginController,displaySarchedUsersController,logoutController,logoutFromAllDvController };
-
-//
+module.exports = { upload,registerController,loginController,forgetPasswordController,changePasswordController,displaySarchedUsersController,logoutController,logoutFromAllDvController };

@@ -8,7 +8,7 @@ import { faPhone,faAt,faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { updateDate } from "../../Util/DateTime";
-import Avatar from "antd/es/avatar/avatar";
+import { Avatar } from "antd";
 import { Tooltip } from 'antd';
 import CreateBlog from "./CreateBlog";
 import EditBlog from "./EditBlog";

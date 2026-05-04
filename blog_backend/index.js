@@ -26,7 +26,10 @@ const parmanentlyDelete = require("./Cron.js");
 
 //middleware  
 app.use(cors( {
-    origin: 'https://nexus-five-chi.vercel.app',
+    origin: [
+        'https://nexus-five-chi.vercel.app',
+        'http://localhost:3000'
+    ],
     credentials: true
 }));  
 app.use(express.urlencoded({extended:true}));
@@ -51,7 +54,6 @@ app.use('/follow',isAuth,FollowRouter);
 app.listen(PORT,() => {
     console.log(`server running at:`);
     console.log(`http://localhost:${PORT}`);
-
 
     parmanentlyDelete();
 });
