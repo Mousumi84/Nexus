@@ -73,6 +73,45 @@ const registerController = async (req,res) => {
 
 
 
+const editProfileController = async (req,res) => {
+    console.log("edit",req.body);
+
+    const {userId, name, username, email, phone, bio, gender, location, instagram, facebook, twitter, image} = req.body;
+
+    try {
+        const userDb = await AuthModel.editDatainDB({userId, name, username, email, phone, bio, gender, location, instagram, facebook, twitter, image});
+
+        console.log("userDb => ",userDb);
+        return res.send({
+            status:200,
+            message:"Profile Updated Successfully",
+            data:{
+                userId: userDb._id,
+                name: userDb.name,
+                username: userDb.username,
+                email: userDb.email,
+                phone: userDb.phone,
+                bio: userDb.bio,
+                gender: userDb.gender,
+                location: userDb.location,
+                instagram: userDb.instagram,
+                facebook: userDb.facebook,
+                twitter: userDb.twitter,
+                image: userDb.image,
+            },
+        });
+    } catch (error) {
+        return res.send({
+            status:500,
+            message:"Internal Server Error",
+            error:error,
+        });
+    }
+}
+
+
+
+
 const loginController = async (req,res) => {
     console.log("login");
     const {userId,password}=req.body;
@@ -85,8 +124,6 @@ const loginController = async (req,res) => {
             message:"Fill the important credential",
         });
     }
-
-
 
     //Find User by usernmae,email
     try {
@@ -112,10 +149,17 @@ const loginController = async (req,res) => {
         req.session.isAuth = true;
         req.session.user = {
             userId:loginData._id,
-            useremail:loginData.email,
+            email:loginData.email,
             username:loginData.username,
-            userimage:loginData.image,
+            image:loginData.image,
             name:loginData.name,
+            phone: loginData.phone,
+            bio: loginData.bio,
+            gender: loginData.gender,
+            location: loginData.location,
+            instagram: loginData.instagram,
+            facebook: loginData.facebook,
+            twitter: loginData.twitter,
         };
         let session=req.session;
 
@@ -270,4 +314,4 @@ const logoutFromAllDvController= async (req,res) => {
 
 
 
-module.exports = { upload,registerController,loginController,forgetPasswordController,changePasswordController,displaySarchedUsersController,logoutController,logoutFromAllDvController };
+module.exports = { upload,registerController,editProfileController,loginController,forgetPasswordController,changePasswordController,displaySarchedUsersController,logoutController,logoutFromAllDvController };

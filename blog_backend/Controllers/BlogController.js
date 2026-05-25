@@ -5,26 +5,15 @@ const multer = require('multer');
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../Utils/cloudinary");
 
-/*
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads/blogImage');                 
-    },
-    filename: function (req, file, cb) {
-        cb(null, `BlogImg-${Date.now()}-${file.originalname}`);
-    }
-})
-*/
-
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: "blog_images",
-        allowed_formats: ["jpg", "jpeg", "png"],
+        allowed_formats: ["jpg", "jpeg", "png", "webp", "avif"],
     },
 });
 
-const post = multer({ storage: storage });
+const imageUpload = multer({ storage: storage });
 
 //====================================================================================================================================================================
 // Created Blog
@@ -34,8 +23,10 @@ const createBlogController = async (req,res) => {
     const {textBody} = req.body;
     const userId = req.user.data._id;
     const time = Date.now();
+
     let image=req.file.path;
 
+    console.log("image",image);
 
     //data validation
     try {
@@ -221,22 +212,21 @@ const editBlogController = async (req,res) => {
 const deleteBlogController = async (req,res) => {
     const blogId = req.body.blogId;
     const userId = req.user.data._id;
+    console.log("blogId",blogId,"userId",userId,req.body);
 
     try {
         const blog = await findBlogWithBlogId({blogId});
-       // console.log(blog);
+       console.log("blog",blog);
 
         //compare the blog userId
         if(!blog.userId.equals(userId))  {  //If userId doesn't match 
            return res.send({
                status:403,
-               message:"Blog not allowed to edit",
+               message:"Blog not allowed to delete",
            });
         }
 
-
         const deletedBlog = await deleteBlogWithBlogId({blogId});
-
         
         return res.send({
             status:200,
@@ -258,4 +248,4 @@ const deleteBlogController = async (req,res) => {
 
 
 
-module.exports = { post,createBlogController,readAllBlogController,readMyBlogController,readBlogController,editBlogController,deleteBlogController };
+module.exports = { imageUpload,createBlogController,readAllBlogController,readMyBlogController,readBlogController,editBlogController,deleteBlogController };

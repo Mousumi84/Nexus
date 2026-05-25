@@ -2,8 +2,17 @@
     margin: 0%;
 }
 
+html, body, #root {
+  min-height: 100%;
+  margin: 0;
+}
+
 body {
-    background-color: black;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #8751f1, #ffffff);
+  background-attachment: fixed;  
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .michroma-regular {
@@ -14,7 +23,7 @@ body {
     font-family: "Monoton", serif;
 }
 
-#navbar {
+#viewport {
 
     nav {
         position: fixed;
@@ -39,9 +48,9 @@ body {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            width: 60%;
+            width: 80%;
 
-            #logout-nav {
+            #logout-nav, #login-nav {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
@@ -53,19 +62,7 @@ body {
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: end;
-                    width: 80%;
-
-                    div {
-                        display: flex;
-                        gap: 10px;
-                    }
-
-                }
-            }
-
-            #logout-nav {
-
-                #items {
+                    width: 100%;
 
                     button {
                         background-color: transparent;
@@ -76,6 +73,13 @@ body {
                         gap: 10px;
                         align-items: center;
                     }
+
+
+                    div {
+                        display: flex;
+                        gap: 10px;
+                    }
+
                 }
             }
         }
@@ -98,8 +102,8 @@ body {
         position: absolute;
         top: 45px;
         width: 100%;
-        height: fit-content;
-        background-image: linear-gradient(rgb(135, 81, 241) 5%, rgb(135, 81, 241) 5%, rgb(135, 81, 241) 10%, transparent 40%, transparent 80%);
+        height: 100%;
+        /* background-image: linear-gradient(rgb(135, 81, 241) 5%, rgb(135, 81, 241) 5%, rgb(135, 81, 241) 10%, transparent 40%, transparent 80%); */
         background-attachment: fixed;
     }
 

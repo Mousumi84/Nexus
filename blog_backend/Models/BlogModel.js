@@ -102,7 +102,7 @@ const findBlogWithBlogId  = ({blogId}) => {
 
         try {
             const Blog = await BlogSchema.findOne({ _id : blogId});
-           // console.log("Blog",Blog);
+        //    console.log("Blog",Blog);
 
             if(!Blog) reject('Blog not found');
 
@@ -138,7 +138,12 @@ const deleteBlogWithBlogId = ({blogId}) => {
     return new Promise (async (resolve,reject) => {
 
         try {
-            const deletedBlog = await BlogSchema.findOneAndUpdate({ _id : blogId },{isDeleted : true, deletedTime : Date.now() });
+            // current time + 30 days
+            const deleteAfter30Days = new Date(
+                Date.now() + 30 * 24 * 60 * 60 * 1000
+            );
+
+            const deletedBlog = await BlogSchema.findOneAndUpdate({ _id : blogId }, {isDeleted : true, deletedTime : deleteAfter30Days },{ new: true });
             resolve(deletedBlog);
         } catch (error) {
             reject(error);

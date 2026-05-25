@@ -152,7 +152,7 @@ function Follow({ endpointA, endpointB, button }) {
             );
           })
         ) : (
-          <div>No Followers</div>
+          <div>{`No ${button.toLowerCase()}s`}</div>
         )}
       </div>
     </>

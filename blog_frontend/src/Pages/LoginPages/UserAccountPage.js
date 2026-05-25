@@ -21,6 +21,8 @@ function UserAccount() {
   const user = location.state?.user;
   const { userId } = useParams();
 
+  console.log("User data in UserAccount:", user);
+  
   // Follow Button
   const btnClick = async (e) => {
     try {

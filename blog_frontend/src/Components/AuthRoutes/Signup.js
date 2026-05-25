@@ -14,6 +14,7 @@ function Signup() {
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
+    console.log(e.target.files[0]);
     setProfilePicture(e.target.files[0]);
   };
 
@@ -50,7 +51,7 @@ function Signup() {
       formDataToSend.append("password", password);
 
       if (profilePicture) {
-        formDataToSend.append("profileimg", profilePicture);
+        formDataToSend.append("image", profilePicture);
       }
 
       console.log(formDataToSend);
@@ -92,9 +93,7 @@ function Signup() {
               aria-describedby="emailHelp"
               placeholder="Enter your email"
             />
-            {validationError.email && (
-              <div className="text-danger">{validationError.email}</div>
-            )}
+            {validationError.email && (<div className="text-danger">{validationError.email}</div>)}
           </div>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
@@ -146,7 +145,7 @@ function Signup() {
               type="file"
               className="form-control custom-placeholder"
               id="formFile"
-              name="profileimg"
+              name="image"
               onChange={handleFileChange}
             />
           </div>

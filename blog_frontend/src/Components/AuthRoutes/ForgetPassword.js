@@ -7,6 +7,7 @@ function ForgetPassword() {
     const [validationError, isValidationError]=useState({ username:"", email:"", password:"" });
     const [credentialConfirmation, setCredentialConfirmation] = useState(false);
     const navigate=useNavigate();
+    const token = localStorage.getItem("Token");
 
     const forgetPasswordAPI=async (e) => {
         e.preventDefault();
@@ -33,7 +34,8 @@ function ForgetPassword() {
                     data: {
                         username:username,
                         email:email,
-                    }
+                    },
+                    headers: { Authorization: token },
                 });
 
                 console.log(response);
@@ -74,7 +76,8 @@ function ForgetPassword() {
                     data: {
                         jwttoken: localStorage.getItem("ConfirmationToken"),
                         password: password
-                    }
+                    },
+                    headers: { Authorization: token },
                 });
 
                 console.log(response);

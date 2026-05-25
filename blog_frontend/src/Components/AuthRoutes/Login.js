@@ -47,10 +47,7 @@ function Login() {
 
         let token = response.data.jwtToken;
         localStorage.setItem("Token", token);
-        localStorage.setItem(
-          "User",
-          JSON.stringify(response.data.session.user),
-        );
+        localStorage.setItem("User",JSON.stringify(response.data.session.user));
         setIsLogin(true);
         message.success("Login successful!");
         navigate("/dashboard");

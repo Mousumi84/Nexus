@@ -3,18 +3,34 @@ const bcrypt=require("bcryptjs");
 const ObjectId = require('mongodb').ObjectId;
 
 const AuthModel = class{
-    name;
-    username;
-    email;
-    password;
+    // userId; 
+    name; 
+    username; 
+    email; 
+    phone; 
+    bio; 
+    gender; 
+    location; 
+    instagram; 
+    facebook; 
+    twitter;
     image;
+    password;
 
-    constructor({name,username,email,password,image}) {
+
+    constructor({name,username,email,phone,bio,gender,location,instagram,facebook,twitter,image,password}) {
         this.name=name;
         this.username=username;
         this.email=email;
-        this.password=password;
+        this.phone=phone; 
+        this.bio=bio; 
+        this.gender=gender; 
+        this.location=location; 
+        this.instagram=instagram; 
+        this.facebook=facebook; 
+        this.twitter=twitter;
         this.image=image;
+        this.password=password;
     }
 
     
@@ -35,6 +51,20 @@ const AuthModel = class{
             // save userObj in DB
             try {
                 const userDb = await userObj.save();
+                resolve(userDb);
+            } catch (error) {
+                reject(error);
+            }
+
+        });
+    }
+
+    static editDatainDB({userId, name, username, email, phone, bio, gender, location, instagram, facebook, twitter, image}) {
+        return new Promise(async (resolve,reject) => {
+
+            // save userObj in DB
+            try {
+                const userDb = await UserSchema.findByIdAndUpdate(userId, { name, username, email, phone, bio, gender, location, instagram, facebook, twitter, image }, { new: true });
                 resolve(userDb);
             } catch (error) {
                 reject(error);

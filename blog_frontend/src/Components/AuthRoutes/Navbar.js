@@ -1,9 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { details, themeContext } from "../../App";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import { Avatar, message } from "antd";
 
@@ -55,12 +52,7 @@ export function Navbar() {
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (
-        searchInputRef.current &&
-        !searchInputRef.current.contains(event.target) &&
-        searchBoxRef.current &&
-        !searchBoxRef.current.contains(event.target)
-      ) {
+      if ( searchInputRef.current && !searchInputRef.current.contains(event.target) && searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
         setSrchBox(false);
       }
     }
@@ -84,63 +76,54 @@ export function Navbar() {
 
   return (
     <>
-      <div id="navbar">
+      <div id="viewport">
         <nav>
-          <img
-            src="/nexuslogo.jpg"
-            alt="NEXUS"
-            onClick={() => (isLogin ? navigate("/dashboard") : navigate("/"))}
-          />
+          <img src="/nexuslogo.jpg" alt="NEXUS" onClick={() => (isLogin ? navigate("/dashboard") : navigate("/"))} />
           <div id="item-box">
             {isLogin ? (
               <div id="login-nav">
-                <div className="icon search">
-                  <input
-                    type="search"
-                    id="srch"
-                    placeholder="Search"
-                    onKeyUp={debouncing(fetchSearchUsers)}
-                    autoComplete="off"
-                    ref={searchInputRef}
-                  />
-                  <span className="material-icons-outlined">search</span>
-                </div>
-                <div className="icon">
-                  <FontAwesomeIcon icon={faHeart} size="2xl" />
-                  <span className="it-txt">Notifications</span>
-                </div>
-                <div className="icon">
-                  <FontAwesomeIcon icon={faMessage} size="2xl" />
-                  <span className="it-txt">Messages</span>
-                </div>
-                <div className="icon">
-                  <span
-                    className="material-icons-outlined tm"
-                    onClick={toggleTheme}
-                  >
-                    {theme === "light" ? "nightlight" : "light_mode"}
-                  </span>
-                </div>
-                <div
-                  className="icon profile"
-                  onClick={() => navigate("/profile")}
-                >
-                  <Avatar src={`${loginData.userimage}`} />
+                <div id="items">
+                  <button className="icon search">
+                    <input type="search" id="srch" placeholder="Search" onKeyUp={debouncing(fetchSearchUsers)} autoComplete="off" ref={searchInputRef} />
+                    <span className="material-icons-outlined">search</span>
+                  </button>
+                  {/* <button onClick={() => navigate("/about")}>
+                    <span className="material-icons-outlined">info</span>
+                    <span className="it-txt">About</span>
+                  </button> */}
+                  <button onClick={() => navigate("/dashboard")}>
+                    <span className="material-icons-outlined">home</span>
+                    <span className="it-txt">Home</span>
+                  </button>
+                  <button className="icon">
+                    <span className="material-icons-outlined">notifications</span>
+                    <span className="it-txt">Notifications</span>
+                  </button>
+                  <button className="icon">
+                    <span className="material-icons-outlined">chat</span>
+                    <span className="it-txt">Messages</span>
+                  </button>
+                  <button className="icon">
+                    <span className="material-icons-outlined tm" onClick={toggleTheme}>
+                      {theme === "light" ? "nightlight" : "light_mode"}
+                    </span>
+                  </button>
+                  <button className="icon profile" onClick={() => navigate("/profile")}>
+                    <Avatar src={`${loginData.image}`} />
+                  </button>
                 </div>
               </div>
             ) : (
               <div id="logout-nav">
                 <div id="items">
-                  <button onClick={() => navigate("/home")}>
-                    <span className="material-icons-outlined">home</span>
-                    <span className="it-txt">Home</span>
+                  <button onClick={() => navigate("/about")}>
+                    <span className="material-icons-outlined">info</span>
+                    <span className="it-txt">About</span>
                   </button>
                   <button onClick={() => navigate("/support")}>
-                    <span className="material-icons-outlined">
-                      support_agent
-                    </span>
+                    <span className="material-icons-outlined">support_agent</span>
                     <span className="it-txt">Support</span>
-                  </button>
+                  </button> 
                   <button onClick={() => navigate("/download")}>
                     <span className="material-icons-outlined">download</span>
                     <span className="it-txt">Download</span>

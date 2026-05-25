@@ -5,13 +5,13 @@ import { Input } from "antd";
 import axios from "axios";
 const { TextArea } = Input;
 
-function EditBlog({ clickedBlog, setClickedBlog, setIsEditingBlog }) {
+function EditPost({ clickedBlog, setClickedBlog, setIsEditingBlog }) {
   const [content, setContent] = useState(clickedBlog.textBody);
   const { loginData } = useContext(details);
   let token = localStorage.getItem("Token");
   let blogId = clickedBlog._id;
 
-  const hidePopEditBlog = () => {
+  const hidePopEditPost = () => {
     setClickedBlog(null);
     setIsEditingBlog(false);
   };
@@ -53,20 +53,15 @@ function EditBlog({ clickedBlog, setClickedBlog, setIsEditingBlog }) {
       <div id="edit">
         <div id="heading">
           <h3>Edit Post</h3>
-          <span
-            className="material-icons-outlined cross"
-            onClick={hidePopEditBlog}
-          >
-            close
-          </span>
+          <span className="material-icons-outlined cross" onClick={hidePopEditPost}>close</span>
         </div>
-        <span className="warning">You are only allowed to edit the text</span>
+        {/* <span className="warning">You are only allowed to edit the text</span> */}
         <div id="post-form">
           <div id="dp-nm">
             <Avatar
               src={
-                loginData.userimage && (
-                  <img src={`${loginData.userimage}`} alt="UserImg" />
+                loginData.image && (
+                  <img src={`${loginData.image}`} alt="UserImg" />
                 )
               }
             />
@@ -81,7 +76,7 @@ function EditBlog({ clickedBlog, setClickedBlog, setIsEditingBlog }) {
               defaultValue={content}
               onChange={textchange}
             />
-            <img src={`${clickedBlog.image}`} alt="image" />
+            <img src={`${clickedBlog.image}`} alt="Blog" />
             <input type="submit" id="editbtn" value="Edit" />
           </form>
         </div>
@@ -90,4 +85,4 @@ function EditBlog({ clickedBlog, setClickedBlog, setIsEditingBlog }) {
   );
 }
 
-export default EditBlog;
+export default EditPost;

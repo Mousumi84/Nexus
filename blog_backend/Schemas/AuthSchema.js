@@ -22,7 +22,28 @@ const userSchema = new Schema({
         required:true,
         select:false,
     },
-    image: {}
+    image: {},
+    phone: {
+        type:Number,
+    },
+    bio: {
+        type:String,
+    },
+    gender: {
+        type:String,
+    },
+    location: {
+        type:String,
+    },
+    instagram: {
+        type:String,
+    },
+    facebook: {
+        type:String,
+    },
+    twitter: {
+        type:String,
+    },
 });
 
 const UserSchema = mongoose.model("user",userSchema);

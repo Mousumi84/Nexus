@@ -22,9 +22,16 @@ const blogSchema = new Schema({
         default:false,
     },
     deletedTime: {
-        type:String,
+        type: Date,
+        default: null,
     }
 });
+
+// TTL INDEX
+blogSchema.index(
+    { deletedTime: 1 },
+    { expireAfterSeconds: 0 }
+);
 
 const BlogSchema = mongoose.model("blog",blogSchema);
 

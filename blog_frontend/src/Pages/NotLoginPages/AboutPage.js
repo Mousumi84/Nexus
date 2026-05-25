@@ -1,7 +1,7 @@
-function Home() {
+function About() {
   return (
     <>
-      <div id="home" className="container mt-5">
+      <div id="about" className="container mt-5">
         <div className="text-center mb-5">
           <h1 className="fw-bold">Welcome to Nexus</h1>
           <p className="lead">
@@ -15,15 +15,15 @@ function Home() {
         <section className="mb-5">
           <h2>About Nexus</h2>
           <p>
-            Nexus was created with a simple mission — to bring people closer,
-            no matter where they are. In today's fast-moving digital world,
-            staying connected with family, friends, colleagues, and communities
-            has become more important than ever.
+            Nexus was created with a simple mission — to bring people closer, no
+            matter where they are. In today's fast-moving digital world, staying
+            connected with family, friends, colleagues, and communities has
+            become more important than ever.
           </p>
           <p>
             Our platform allows users to share their life moments, exchange
-            ideas, and discover communities that match their interests in a
-            safe and engaging environment.
+            ideas, and discover communities that match their interests in a safe
+            and engaging environment.
           </p>
         </section>
 
@@ -76,8 +76,8 @@ function Home() {
             <div className="col-md-6 mb-4">
               <h4>👥 Build Communities</h4>
               <p>
-                Join interest-based groups and participate in conversations
-                that matter to you.
+                Join interest-based groups and participate in conversations that
+                matter to you.
               </p>
             </div>
           </div>
@@ -90,9 +90,7 @@ function Home() {
             At Nexus, your privacy is one of our top priorities. We understand
             that personal data should remain protected and under your control.
           </p>
-          <p>
-            Our platform offers privacy controls that allow you to decide:
-          </p>
+          <p>Our platform offers privacy controls that allow you to decide:</p>
 
           <ul>
             <li>Who can view your profile</li>
@@ -134,4 +132,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default About;

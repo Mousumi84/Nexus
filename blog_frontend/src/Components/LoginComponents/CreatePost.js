@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { details, themeContext } from "../../App";
 import { PlusOutlined } from "@ant-design/icons";
 import { Image, Upload } from "antd";
+import ImgCrop from 'antd-img-crop';
 import { Input, message } from "antd";
 import axios from "axios";
 const { TextArea } = Input;
@@ -19,7 +20,7 @@ const getBase64 = (file) =>
     };
   });
 
-function CreateBlog({ setIsCreateBlog }) {
+function CreatePost({ setIsCreatePost }) {
   let { loginData } = useContext(details);
   let { theme, colors } = useContext(themeContext);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -46,8 +47,8 @@ function CreateBlog({ setIsCreateBlog }) {
   );
 
   //-------------------------------------------------------------------------------------------------------------------------------------------------
-  const hidePopCreateBlog = () => {
-    setIsCreateBlog(false);
+  const hidePopCreatePost = () => {
+    setIsCreatePost(false);
   };
 
   const enablePostBtn = (e) => {
@@ -66,12 +67,16 @@ function CreateBlog({ setIsCreateBlog }) {
     e.preventDefault();
 
     let textBody = e.target.textBody.value;
-    let image = fileList[0].originFileObj;
+    // let image = fileList[0].originFileObj;
     let token = localStorage.getItem("Token");
 
     const formdata = new FormData();
     formdata.append("textBody", textBody);
-    if (fileList) {
+    
+    // if (fileList) {
+    if (fileList.length > 0) {
+      let image = fileList[0].originFileObj;
+      console.log(image);
       formdata.append("image", image);
     }
 
@@ -103,7 +108,7 @@ function CreateBlog({ setIsCreateBlog }) {
           <h2>Create Post</h2>
           <span
             className="material-icons-outlined cross"
-            onClick={hidePopCreateBlog}
+            onClick={hidePopCreatePost}
           >
             close
           </span>
@@ -112,8 +117,8 @@ function CreateBlog({ setIsCreateBlog }) {
           <div id="dp-nm">
             <Avatar
               src={
-                loginData.userimage && (
-                  <img src={`${loginData.userimage}`} alt="profile pic" />
+                loginData.image && (
+                  <img src={`${loginData.image}`} alt="profile pic" />
                 )
               }
             />
@@ -129,16 +134,18 @@ function CreateBlog({ setIsCreateBlog }) {
               onInput={enablePostBtn}
             />
 
-            <Upload
-              id="image"
-              listType="picture-circle"
-              name="image"
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleChange}
-            >
-              {fileList.length >= 1 ? null : uploadButton}
-            </Upload>
+            <ImgCrop rotationSlider>
+              <Upload
+                id="image"
+                listType="picture-circle"
+                name="image"
+                fileList={fileList}
+                onPreview={handlePreview}
+                onChange={handleChange}
+              >
+                {fileList.length >= 1 ? null : uploadButton}
+              </Upload>
+            </ImgCrop>
             {previewImage && (
               <Image
                 wrapperStyle={{ display: "none" }}
@@ -159,4 +166,4 @@ function CreateBlog({ setIsCreateBlog }) {
   );
 }
 
-export default CreateBlog;
+export default CreatePost;

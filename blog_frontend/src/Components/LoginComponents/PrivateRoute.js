@@ -18,4 +18,3 @@ function PrivateRoute({children}) {
 
 
 export default PrivateRoute;
-// (<h1>Logout</h1>)
