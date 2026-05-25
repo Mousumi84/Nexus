@@ -129,6 +129,7 @@ function UserAccount() {
             <div id="image-area">
               <img
                 src={`${process.env.REACT_APP_API_URL}/${user.image?.path}`}
+                alt="User Avatar"
               />
             </div>
             <div id="intro">
@@ -174,6 +175,7 @@ function UserAccount() {
                             user.image && (
                               <img
                                 src={`${process.env.REACT_APP_API_URL}/${user.image?.path}`}
+                                alt="User Avatar"
                               />
                             )
                           }
@@ -192,6 +194,7 @@ function UserAccount() {
                         {blog.image && (
                           <img
                             src={`${process.env.REACT_APP_API_URL}/${blog.image?.path}`}
+                            alt="Blog"
                           />
                         )}
                       </div>

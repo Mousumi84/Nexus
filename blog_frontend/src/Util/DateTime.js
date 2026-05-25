@@ -1,7 +1,7 @@
 function updateDate(date) {
     const today=Date.now();
     const timediff=today - date;
-    const day= timediff/(1000*60*60*24);
+    // const day= timediff/(1000*60*60*24);
     const sec= timediff/(1000);
     
 
