@@ -28,6 +28,7 @@ function CreatePost({ setIsCreatePost }) {
   const [fileList, setFileList] = useState([]);
 
   const handlePreview = async (file) => {
+
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -36,6 +37,7 @@ function CreatePost({ setIsCreatePost }) {
   };
 
   const handleChange = ({ fileList: newFileList }) => {
+    console.log(newFileList);
     setFileList(newFileList);
   };
 
@@ -73,7 +75,6 @@ function CreatePost({ setIsCreatePost }) {
     const formdata = new FormData();
     formdata.append("textBody", textBody);
     
-    // if (fileList) {
     if (fileList.length > 0) {
       let image = fileList[0].originFileObj;
       console.log(image);
@@ -121,7 +122,7 @@ function CreatePost({ setIsCreatePost }) {
                   <img src={`${loginData.image}`} alt="profile pic" />
                 )
               }
-            />
+            /> 
             <div className="username">{loginData.name}</div>
           </div>
           <form onSubmit={createBlogFun} encType="multipart/form-data">

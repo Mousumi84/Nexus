@@ -14,8 +14,11 @@ function Signup() {
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
-    console.log(e.target.files[0]);
-    setProfilePicture(e.target.files[0]);
+    const file = e.target.files[0];
+
+    if(file) {
+      setProfilePicture(file);
+    }
   };
 
   const signupAPI = async (e) => {

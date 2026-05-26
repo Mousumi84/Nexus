@@ -12,7 +12,7 @@ import { Avatar, Tooltip, message, Modal  } from "antd";
 import CreatePost from "../../Components/LoginComponents/CreatePost";
 import EditPost from "../../Components/LoginComponents/EditPost";
 import Follow from "../../Components/LoginComponents/Follow";
-import PersonImage from "../../assets/PersonImage.jpg";
+import PersonImage from "../../Assets/PersonImage.jpg";
 
 function Profile() {
   const [clickedBlog, setClickedBlog] = useState(null);
@@ -29,6 +29,7 @@ function Profile() {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [openLogoutPop, setOpenLogoutPop] = useState(false);
   const [loginData, setLoginData] = useState(null);
+
   const { setIsLogin } = useContext(details);
   const { theme, colors } = useContext(themeContext);
   let limit = 6;
@@ -244,10 +245,10 @@ console.log("not following", notFollowing,loginData);
                 <span className="material-icons-outlined">logout</span>
                 <span>Logout</span>
               </button>
-                        {/* //Logout modal */}
-                        <Modal title="Logout Confirmation" open={openLogoutPop} onOk={logoutFun} onCancel={hideLogoutModal} okText="Yes, Logout" cancelText="No">
-                          <p>Are you sure you want to logout?</p>
-                        </Modal>
+              {/* //Logout modal */}
+              <Modal title="Logout Confirmation" open={openLogoutPop} onOk={logoutFun} onCancel={hideLogoutModal} okText="Yes, Logout" cancelText="No">
+                <p>Are you sure you want to logout?</p>
+              </Modal>
               <button>
                 <span className="material-icons-outlined">share</span>
               </button>
@@ -255,10 +256,7 @@ console.log("not following", notFollowing,loginData);
           </div>
           <div id="end">
             <div id="image-area">
-              <img
-                src={loginData?.image ? `${loginData?.image}` : "GirlImage.png"}
-                alt={loginData?.username}
-              />
+              <img src={loginData?.image || PersonImage} alt={loginData?.username} />
             </div>
             <div id="left">
               <div id="intro">

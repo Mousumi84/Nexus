@@ -5,8 +5,8 @@ const AuthRouter = express.Router();
 const upload = require('../Controllers/AuthController').upload; 
 
 
-AuthRouter.post('/registration',upload.single('profileimg'),registerController);
-AuthRouter.post('/edit-profile',upload.single('profileimg'),isAuth,editProfileController);
+AuthRouter.post('/registration',upload.single('image'),registerController);
+AuthRouter.post('/edit-profile',upload.single('image'),isAuth,editProfileController);
 AuthRouter.post('/login',loginController);
 AuthRouter.post('/forgetpassword',forgetPasswordController);
 AuthRouter.post('/changepassword',changePasswordController);

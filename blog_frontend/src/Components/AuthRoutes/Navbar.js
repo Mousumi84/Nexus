@@ -3,15 +3,18 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { details, themeContext } from "../../App";
 import axios from "axios";
 import { Avatar, message } from "antd";
+import PersonImage from "../../Assets/PersonImage.jpg";
 
 export function Navbar() {
   const [searchedUser, setSearchedUser] = useState([]);
   const [srchBox, setSrchBox] = useState(false);
-  const { isLogin, loginData } = useContext(details);
+  const { isLogin } = useContext(details);
   const { theme, setTheme } = useContext(themeContext);
   const searchInputRef = useRef(null);
   const searchBoxRef = useRef(null);
   let navigate = useNavigate();
+
+  const userData = JSON.parse(localStorage.getItem("User"));
 
   // Fetch Search Users
   const fetchSearchUsers = async (e) => {
@@ -109,7 +112,7 @@ export function Navbar() {
                     </span>
                   </button>
                   <button className="icon profile" onClick={() => navigate("/profile")}>
-                    <Avatar src={`${loginData.image}`} />
+                    <Avatar src={userData?.image || PersonImage} />
                   </button>
                 </div>
               </div>

@@ -70,13 +70,12 @@ const registerController = async (req,res) => {
     }
 }
 
-
-
-
 const editProfileController = async (req,res) => {
     console.log("edit",req.body);
+    let image=req?.file?.path || null;
+    console.log(image);
 
-    const {userId, name, username, email, phone, bio, gender, location, instagram, facebook, twitter, image} = req.body;
+    const {userId, name, username, email, phone, bio, gender, location, instagram, facebook, twitter} = req.body;
 
     try {
         const userDb = await AuthModel.editDatainDB({userId, name, username, email, phone, bio, gender, location, instagram, facebook, twitter, image});
@@ -108,9 +107,6 @@ const editProfileController = async (req,res) => {
         });
     }
 }
-
-
-
 
 const loginController = async (req,res) => {
     console.log("login");
@@ -179,9 +175,6 @@ const loginController = async (req,res) => {
     }
 }
 
-
-
-
 const forgetPasswordController = async (req,res) => {
     console.log("forget password");
     const {username,email}=req.body;
@@ -206,9 +199,6 @@ const forgetPasswordController = async (req,res) => {
         });
     }
 }
-
-
-
 
 const changePasswordController = async (req,res) => {
     console.log("change password");
@@ -236,9 +226,6 @@ const changePasswordController = async (req,res) => {
     }
 }
 
-
-
-
 const displaySarchedUsersController = async (req,res) => {
     const searchTerm=req.query.search;
     
@@ -260,9 +247,6 @@ const displaySarchedUsersController = async (req,res) => {
     }
 
 }
-
-
-
 
 const logoutController = async (req,res) => {
     //console.log("logout",req.session);
