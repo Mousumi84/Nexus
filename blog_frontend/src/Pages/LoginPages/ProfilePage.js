@@ -3,16 +3,27 @@ import { colors, details } from "../../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookF, faXTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faPhone, faAt, faLocationDot, faPersonHalfDress, faPersonDress, faPerson } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebookF,
+  faXTwitter,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  faPhone,
+  faAt,
+  faLocationDot,
+  faPersonHalfDress,
+  faPersonDress,
+  faPerson,
+} from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { updateDate } from "../../Util/DateTime";
-import { Avatar, Tooltip, message, Modal  } from "antd";
+import { Avatar, Tooltip, message, Modal } from "antd";
 import CreatePost from "../../Components/LoginComponents/CreatePost";
 import EditPost from "../../Components/LoginComponents/EditPost";
 import Follow from "../../Components/LoginComponents/Follow";
-import PersonImage from "../../Assets/PersonImage.jpg";
+import PersonImage from "../../Assets/PersonImage";
 import { themeState } from "../../Recoil/Atoms/ThemeAtom";
 import { useRecoilValue } from "recoil";
 
@@ -169,7 +180,7 @@ function Profile() {
         method: "POST",
         headers: { Authorization: token },
         data,
-      });      
+      });
       console.log(response);
 
       if (response.data.status !== 200) {
@@ -199,7 +210,6 @@ function Profile() {
     setLoginData(userData);
 
     const fetchNotFollowingUsers = async () => {
-
       try {
         const response = await axios({
           url: `${process.env.REACT_APP_API_URL}/follow/notfollowing-user-list`,
@@ -230,7 +240,7 @@ function Profile() {
     return () => window.removeEventListener("scroll", handelScroll);
   }, [loading, hasMore]);
 
-console.log("not following", notFollowing,loginData);
+  console.log("not following", notFollowing, loginData);
 
   return (
     <>
@@ -248,7 +258,14 @@ console.log("not following", notFollowing,loginData);
                 <span>Logout</span>
               </button>
               {/* //Logout modal */}
-              <Modal title="Logout Confirmation" open={openLogoutPop} onOk={logoutFun} onCancel={hideLogoutModal} okText="Yes, Logout" cancelText="No">
+              <Modal
+                title="Logout Confirmation"
+                open={openLogoutPop}
+                onOk={logoutFun}
+                onCancel={hideLogoutModal}
+                okText="Yes, Logout"
+                cancelText="No"
+              >
                 <p>Are you sure you want to logout?</p>
               </Modal>
               <button>
@@ -258,46 +275,95 @@ console.log("not following", notFollowing,loginData);
           </div>
           <div id="end">
             <div id="image-area">
-              <img src={loginData?.image || PersonImage} alt={loginData?.username} />
+              <img
+                src={loginData?.image || PersonImage}
+                alt={loginData?.username}
+              />
             </div>
             <div id="left">
               <div id="intro">
                 <div id="name">
                   {loginData?.name}{" "}
                   <span>
-                    {loginData?.gender === "Male" ? 
-                    ( <FontAwesomeIcon icon={faPerson} className="gender-icon" style={{ backgroundColor: "#77c1f5"}}/> ) : 
-                    loginData?.gender === "Female" ? 
-                    ( <FontAwesomeIcon icon={faPersonDress} className="gender-icon" style={{ backgroundColor: "#f57781"}} /> ) : 
-                    loginData?.gender === "Other" ? 
-                    ( <FontAwesomeIcon icon={faPersonHalfDress} className="gender-icon" style={{ backgroundColor: "#fbbc5e"}} /> ) :
-                    "-"
-                    }
+                    {loginData?.gender === "Male" ? (
+                      <FontAwesomeIcon
+                        icon={faPerson}
+                        className="gender-icon"
+                        style={{ backgroundColor: "#77c1f5" }}
+                      />
+                    ) : loginData?.gender === "Female" ? (
+                      <FontAwesomeIcon
+                        icon={faPersonDress}
+                        className="gender-icon"
+                        style={{ backgroundColor: "#f57781" }}
+                      />
+                    ) : loginData?.gender === "Other" ? (
+                      <FontAwesomeIcon
+                        icon={faPersonHalfDress}
+                        className="gender-icon"
+                        style={{ backgroundColor: "#fbbc5e" }}
+                      />
+                    ) : (
+                      "-"
+                    )}
                   </span>
                 </div>
-                <div id="bio" style={{ padding: "10px"}}>{loginData?.bio}</div>
+                <div id="bio" style={{ padding: "10px" }}>
+                  {loginData?.bio}
+                </div>
                 <div>
-                  <FontAwesomeIcon icon={faAt} size="xl" style={{ width: "30px" }} />
+                  <FontAwesomeIcon
+                    icon={faAt}
+                    size="xl"
+                    style={{ width: "30px" }}
+                  />
                   <span>{loginData?.email}</span>
                 </div>
                 <div>
-                  <FontAwesomeIcon icon={faPhone} size="xl" style={{ width: "30px" }} />
+                  <FontAwesomeIcon
+                    icon={faPhone}
+                    size="xl"
+                    style={{ width: "30px" }}
+                  />
                   <span>{loginData?.phone ? loginData?.phone : "---"}</span>
                 </div>
                 <div>
-                  <FontAwesomeIcon icon={faLocationDot} size="xl" style={{ width: "30px" }} />
-                  <span>{loginData?.location ? loginData?.location : "---"}</span>
+                  <FontAwesomeIcon
+                    icon={faLocationDot}
+                    size="xl"
+                    style={{ width: "30px" }}
+                  />
+                  <span>
+                    {loginData?.location ? loginData?.location : "---"}
+                  </span>
                 </div>
                 <div>
-                  <FontAwesomeIcon icon={faInstagram} size="xl" style={{ width: "30px" }} />
-                  <span> {loginData?.instagram ? loginData?.instagram : "---"}</span>
+                  <FontAwesomeIcon
+                    icon={faInstagram}
+                    size="xl"
+                    style={{ width: "30px" }}
+                  />
+                  <span>
+                    {" "}
+                    {loginData?.instagram ? loginData?.instagram : "---"}
+                  </span>
                 </div>
                 <div>
-                  <FontAwesomeIcon icon={faFacebookF} size="xl" style={{ width: "30px" }} />
-                  <span>{loginData?.facebook ? loginData?.facebook : "---"}</span>
+                  <FontAwesomeIcon
+                    icon={faFacebookF}
+                    size="xl"
+                    style={{ width: "30px" }}
+                  />
+                  <span>
+                    {loginData?.facebook ? loginData?.facebook : "---"}
+                  </span>
                 </div>
                 <div>
-                  <FontAwesomeIcon icon={faXTwitter} size="xl" style={{ width: "30px" }} />
+                  <FontAwesomeIcon
+                    icon={faXTwitter}
+                    size="xl"
+                    style={{ width: "30px" }}
+                  />
                   <span>{loginData?.twitter ? loginData?.twitter : "---"}</span>
                 </div>
               </div>
@@ -314,12 +380,21 @@ console.log("not following", notFollowing,loginData);
           <h5>Discover People</h5>
           <div id="sgtn">
             {notFollowing?.map((user) => {
-
               return (
                 <div className="sug-box" key={user._id} id={user._id}>
-                  <div id="name-img" onClick={() => navigate(`/useraccount/${user._id}`, { state: { user: user },}) }>
+                  <div
+                    id="name-img"
+                    onClick={() =>
+                      navigate(`/useraccount/${user._id}`, {
+                        state: { user: user },
+                      })
+                    }
+                  >
                     <div id="image-area">
-                      <img src={user.image ? user.image : PersonImage} alt="user" />
+                      <img
+                        src={user.image ? user.image : PersonImage}
+                        alt="user"
+                      />
                     </div>
                     <div className="name">{user.name}</div>
                   </div>
@@ -333,31 +408,57 @@ console.log("not following", notFollowing,loginData);
         <div id="post">
           {blogList.length !== 0 ? (
             blogList.map((blog) => {
-
               return (
                 <div className="blogList" key={blog._id} id={blog._id}>
                   <div className="user-fstln">
                     <div className="user-pic">
-                      <Avatar src={loginData.image && (<img src={`${loginData.image}`} alt="Profile" />)} />
+                      <Avatar
+                        src={
+                          loginData.image && (
+                            <img src={`${loginData.image}`} alt="Profile" />
+                          )
+                        }
+                      />
                       <div>
                         <div className="username">{loginData.name}</div>
-                        <div className="updatetm">{updateDate(blog.creationDateTime)}</div>
+                        <div className="updatetm">
+                          {updateDate(blog.creationDateTime)}
+                        </div>
                       </div>
                     </div>
                     <div className="btn">
                       <button onClick={() => editBlogPop(blog)}>Edit</button>
-                      <button onClick={() => showDeleteModal(blog)}>Delete</button>
+                      <button onClick={() => showDeleteModal(blog)}>
+                        Delete
+                      </button>
                     </div>
                   </div>
                   {blog.image && (
                     <div className="blog-cnt">
                       <div className="blog-txt">{blog.textBody}</div>
-                      <div className="blog-img">{blog.image && <img src={`${blog.image}`} alt="blog" />}</div>
+                      <div className="blog-img">
+                        {blog.image && <img src={`${blog.image}`} alt="blog" />}
+                      </div>
                     </div>
                   )}
                   {!blog.image && (
-                    <div className="blog-cnt" style={{ display: "flex", justifyContent: "center" }}>
-                      <div className="blog-txt" style={{ backgroundColor: "#8651f16f", height: "80%", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", borderRadius: "5px", color: "#fff" }}>
+                    <div
+                      className="blog-cnt"
+                      style={{ display: "flex", justifyContent: "center" }}
+                    >
+                      <div
+                        className="blog-txt"
+                        style={{
+                          backgroundColor: "#8651f16f",
+                          height: "80%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          padding: "20px",
+                          borderRadius: "5px",
+                          color: "#fff",
+                        }}
+                      >
                         {blog.textBody}
                       </div>
                     </div>
@@ -365,14 +466,26 @@ console.log("not following", notFollowing,loginData);
                   <div className="like-cmt-share">
                     <div>
                       <span className="like-count">{blog.likescount}</span>
-                      <span className="material-icons-outlined like ldcs">thumb_up</span>
+                      <span className="material-icons-outlined like ldcs">
+                        thumb_up
+                      </span>
                     </div>
                     <div>
-                      <span className="dislike-count">{blog.dislikescount}</span>
-                      <span className="material-icons-outlined dis-like ldcs">thumb_down</span>
+                      <span className="dislike-count">
+                        {blog.dislikescount}
+                      </span>
+                      <span className="material-icons-outlined dis-like ldcs">
+                        thumb_down
+                      </span>
                     </div>
-                    <FontAwesomeIcon className="comnt ldcs" icon={faComment} size="xl"/>
-                    <span className="material-icons-outlined share ldcs">send</span>
+                    <FontAwesomeIcon
+                      className="comnt ldcs"
+                      icon={faComment}
+                      size="xl"
+                    />
+                    <span className="material-icons-outlined share ldcs">
+                      send
+                    </span>
                   </div>
                 </div>
               );
@@ -382,7 +495,14 @@ console.log("not following", notFollowing,loginData);
           )}
 
           {/* //Delete modal */}
-          <Modal title="Delete Post Confirmation" open={openDeletePop} onOk={() => deleteBlogAPIFun(selectedBlog)} onCancel={hideDeleteModal} okText="Yes, Delete" cancelText="No">
+          <Modal
+            title="Delete Post Confirmation"
+            open={openDeletePop}
+            onOk={() => deleteBlogAPIFun(selectedBlog)}
+            onCancel={hideDeleteModal}
+            okText="Yes, Delete"
+            cancelText="No"
+          >
             <p>Are you sure you want to delete this blog post?</p>
           </Modal>
         </div>
@@ -417,7 +537,7 @@ console.log("not following", notFollowing,loginData);
 
         {followerPop && (
           <div id="follower" className="follow-content">
-            <div className="follow-box" style={colors[theme]}>  
+            <div className="follow-box" style={colors[theme]}>
               <div className="follow">
                 <h1>Followers</h1>
                 <span

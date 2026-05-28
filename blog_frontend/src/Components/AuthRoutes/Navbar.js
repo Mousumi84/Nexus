@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { details } from "../../App";
 import axios from "axios";
 import { Avatar, message } from "antd";
-import PersonImage from "../../Assets/PersonImage.jpg";
+import PersonImage from "../../Assets/PersonImage";
 import { useRecoilState } from "recoil";
 import { themeState } from "../../Recoil/Atoms/ThemeAtom";
 
@@ -57,7 +57,12 @@ export function Navbar() {
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if ( searchInputRef.current && !searchInputRef.current.contains(event.target) && searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
+      if (
+        searchInputRef.current &&
+        !searchInputRef.current.contains(event.target) &&
+        searchBoxRef.current &&
+        !searchBoxRef.current.contains(event.target)
+      ) {
         setSrchBox(false);
       }
     }
@@ -83,13 +88,24 @@ export function Navbar() {
     <>
       <div id="viewport">
         <nav>
-          <img src="/nexuslogo.jpg" alt="NEXUS" onClick={() => (isLogin ? navigate("/dashboard") : navigate("/"))} />
+          <img
+            src="/nexuslogo.jpg"
+            alt="NEXUS"
+            onClick={() => (isLogin ? navigate("/dashboard") : navigate("/"))}
+          />
           <div id="item-box">
             {isLogin ? (
               <div id="login-nav">
                 <div id="items">
                   <button className="icon search">
-                    <input type="search" id="srch" placeholder="Search" onKeyUp={debouncing(fetchSearchUsers)} autoComplete="off" ref={searchInputRef} />
+                    <input
+                      type="search"
+                      id="srch"
+                      placeholder="Search"
+                      onKeyUp={debouncing(fetchSearchUsers)}
+                      autoComplete="off"
+                      ref={searchInputRef}
+                    />
                     <span className="material-icons-outlined">search</span>
                   </button>
                   {/* <button onClick={() => navigate("/about")}>
@@ -101,7 +117,9 @@ export function Navbar() {
                     <span className="it-txt">Home</span>
                   </button>
                   <button className="icon">
-                    <span className="material-icons-outlined">notifications</span>
+                    <span className="material-icons-outlined">
+                      notifications
+                    </span>
                     <span className="it-txt">Notifications</span>
                   </button>
                   <button className="icon">
@@ -109,11 +127,17 @@ export function Navbar() {
                     <span className="it-txt">Messages</span>
                   </button>
                   <button className="icon">
-                    <span className="material-icons-outlined tm" onClick={toggleTheme}>
+                    <span
+                      className="material-icons-outlined tm"
+                      onClick={toggleTheme}
+                    >
                       {theme === "light" ? "nightlight" : "light_mode"}
                     </span>
                   </button>
-                  <button className="icon profile" onClick={() => navigate("/profile")}>
+                  <button
+                    className="icon profile"
+                    onClick={() => navigate("/profile")}
+                  >
                     <Avatar src={userData?.image || PersonImage} />
                   </button>
                 </div>
@@ -126,9 +150,11 @@ export function Navbar() {
                     <span className="it-txt">About</span>
                   </button>
                   <button onClick={() => navigate("/support")}>
-                    <span className="material-icons-outlined">support_agent</span>
+                    <span className="material-icons-outlined">
+                      support_agent
+                    </span>
                     <span className="it-txt">Support</span>
-                  </button> 
+                  </button>
                   <button onClick={() => navigate("/download")}>
                     <span className="material-icons-outlined">download</span>
                     <span className="it-txt">Download</span>
@@ -147,8 +173,16 @@ export function Navbar() {
           <div id="srch-usr-box" ref={searchBoxRef}>
             {searchedUser.map((user) => {
               return (
-                <div className={`usr-dtl ${user._id}`} key={user._id} onClick={() => clickProfile(user)}>
-                  <Avatar src={<img src={user.image?.path || PersonImage} alt="avatar" />}/>
+                <div
+                  className={`usr-dtl ${user._id}`}
+                  key={user._id}
+                  onClick={() => clickProfile(user)}
+                >
+                  <Avatar
+                    src={
+                      <img src={user.image?.path || PersonImage} alt="avatar" />
+                    }
+                  />
                   <div>{user.name}</div>
                 </div>
               );

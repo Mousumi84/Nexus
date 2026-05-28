@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import PersonImage from "../../Assets/PersonImage.jpg";
+import PersonImage from "../../Assets/PersonImage";
 
 function Follow({ endpointA, endpointB, button }) {
   const [followList, setFollowList] = useState([]);
@@ -117,9 +117,16 @@ function Follow({ endpointA, endpointB, button }) {
           followList.map((flw) => {
             return (
               <div className="flw-usr" key={flw._id} id={flw._id}>
-                <div className="usr-dtl" onClick={() => navigate(`/useraccount/${flw._id}`, { state: { user: flw } })}>
+                <div
+                  className="usr-dtl"
+                  onClick={() =>
+                    navigate(`/useraccount/${flw._id}`, {
+                      state: { user: flw },
+                    })
+                  }
+                >
                   <div className="image-area">
-                    <img src={ flw.image || PersonImage} alt={flw.name[0]} />
+                    <img src={flw.image || PersonImage} alt={flw.name[0]} />
                   </div>
                   <div className="usr">
                     <div className="usr-nm">{flw.name}</div>
