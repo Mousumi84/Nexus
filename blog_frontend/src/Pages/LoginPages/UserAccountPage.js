@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { updateDate } from "../../Util/DateTime";
 import { Avatar, message } from "antd";
-import PersonImage from "../../Assets/PersonImage";
+import PersonImage from "../../Assets/PersonImage.jpg";
 import {
   faPerson,
   faPersonDress,

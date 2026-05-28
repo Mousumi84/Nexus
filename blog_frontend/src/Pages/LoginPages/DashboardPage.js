@@ -5,7 +5,7 @@ import { Avatar, message } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { updateDate } from "../../Util/DateTime";
-import PersonImage from "../../Assets/PersonImage";
+import PersonImage from "../../Assets/PersonImage.jpg";
 
 function Dashboard() {
   const [skip, setSkip] = useState(0);
