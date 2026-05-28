@@ -244,7 +244,7 @@ const displaySarchedUsersController = async (req,res) => {
     } catch (error) {
         return res.send({
             status:500,
-            message:"Search failedr",
+            message:"Search failed",
             error:error,
         });
     }

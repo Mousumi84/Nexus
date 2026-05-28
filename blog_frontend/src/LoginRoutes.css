@@ -740,8 +740,8 @@
         top: 0;
         left: 0;
         z-index: 10;
-        background-color: rgba(255, 255, 255, 0.691);
-        backdrop-filter: blur(2px);
+        /* background-color: rgba(255, 255, 255, 0.691); */
+        backdrop-filter: blur(5px);
         height: 100%;
         width: 100%;
         align-content: center;
@@ -819,8 +819,8 @@
         top: 0;
         left: 0;
         z-index: 100;
-        background-color: rgba(255, 255, 255, 0.691);
-        backdrop-filter: blur(2px);
+        /* background-color: rgba(255, 255, 255, 0.691); */
+        backdrop-filter: blur(5px);
         height: 100%;
         width: 100%;
         align-content: center;
@@ -904,8 +904,8 @@
         top: 0;
         left: 0;
         z-index: 100;
-        background-color: rgba(255, 255, 255, 0.691);
-        backdrop-filter: blur(2px);
+        /* background-color: rgba(255, 255, 255, 0.691); */
+        backdrop-filter: blur(5px);
         height: 100%;
         width: 100%;
         align-content: center;
