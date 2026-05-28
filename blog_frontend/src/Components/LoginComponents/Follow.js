@@ -117,7 +117,7 @@ function Follow({ endpointA, endpointB, button }) {
           followList.map((flw) => {
             return (
               <div className="flw-usr" key={flw._id} id={flw._id}>
-                <div className="usr-dtl">
+                <div className="usr-dtl" onClick={() => navigate(`/useraccount/${flw._id}`, { state: { user: flw } })}>
                   <div className="image-area">
                     <img src={ flw.image || PersonImage} alt={flw.name[0]} />
                   </div>

@@ -317,14 +317,7 @@ console.log("not following", notFollowing,loginData);
 
               return (
                 <div className="sug-box" key={user._id} id={user._id}>
-                  <div
-                    id="name-img"
-                    onClick={() =>
-                      navigate(`/useraccount/${user._id}`, {
-                        state: { user: user },
-                      })
-                    }
-                  >
+                  <div id="name-img" onClick={() => navigate(`/useraccount/${user._id}`, { state: { user: user },}) }>
                     <div id="image-area">
                       <img src={user.image ? user.image : PersonImage} alt="user" />
                     </div>
@@ -356,10 +349,19 @@ console.log("not following", notFollowing,loginData);
                       <button onClick={() => showDeleteModal(blog)}>Delete</button>
                     </div>
                   </div>
-                  <div className="blog-cnt">
-                    <div className="blog-txt">{blog.textBody}</div>
-                    <div className="blog-img">{blog.image && <img src={`${blog.image}`} alt="blog" />}</div>
-                  </div>
+                  {blog.image && (
+                    <div className="blog-cnt">
+                      <div className="blog-txt">{blog.textBody}</div>
+                      <div className="blog-img">{blog.image && <img src={`${blog.image}`} alt="blog" />}</div>
+                    </div>
+                  )}
+                  {!blog.image && (
+                    <div className="blog-cnt" style={{ display: "flex", justifyContent: "center" }}>
+                      <div className="blog-txt" style={{ backgroundColor: "#8651f16f", height: "80%", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", borderRadius: "5px", color: "#fff" }}>
+                        {blog.textBody}
+                      </div>
+                    </div>
+                  )}
                   <div className="like-cmt-share">
                     <div>
                       <span className="like-count">{blog.likescount}</span>

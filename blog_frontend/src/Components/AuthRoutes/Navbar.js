@@ -147,21 +147,8 @@ export function Navbar() {
           <div id="srch-usr-box" ref={searchBoxRef}>
             {searchedUser.map((user) => {
               return (
-                <div
-                  className={`usr-dtl ${user._id}`}
-                  key={user._id}
-                  onClick={() => clickProfile(user)}
-                >
-                  <Avatar
-                    src={
-                      user.image && (
-                        <img
-                          src={`${process.env.REACT_APP_API_URL}/${user.image?.path}`}
-                          alt="avatar"
-                        />
-                      )
-                    }
-                  />
+                <div className={`usr-dtl ${user._id}`} key={user._id} onClick={() => clickProfile(user)}>
+                  <Avatar src={<img src={user.image?.path || PersonImage} alt="avatar" />}/>
                   <div>{user.name}</div>
                 </div>
               );

@@ -204,12 +204,7 @@ function UserAccount() {
                     <div className="blog-cnt">
                       <div className="blog-txt">{blog.textBody}</div>
                       <div className="blog-img">
-                        {blog.image && (
-                          <img
-                            src={`${process.env.REACT_APP_API_URL}/${blog.image?.path}`}
-                            alt="Blog"
-                          />
-                        )}
+                        <img src={blog?.image} alt="Blog" />
                       </div>
                     </div>
                     <div className="like-cmt-share">

@@ -24,8 +24,11 @@ const createBlogController = async (req,res) => {
     const userId = req.user.data._id;
     const time = Date.now();
 
-    let image=req.file.path;
+    let image;
 
+    if(req.file) {
+        image = req.file.path;
+    }
     console.log("image",image);
 
     //data validation
