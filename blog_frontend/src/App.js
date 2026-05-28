@@ -6,6 +6,8 @@ import { createContext, lazy, Suspense, useEffect, useState } from "react";
 import { Spin } from "antd";
 import { Navbar } from "./Components/AuthRoutes/Navbar";
 import { LandingPage } from "./Pages/NotLoginPages/LandingPage";
+import { themeState } from "./Recoil/Atoms/ThemeAtom";
+import { useRecoilValue } from "recoil";
 
 let Login = lazy(() => import("./Components/AuthRoutes/Login"));
 let Signup = lazy(() => import("./Components/AuthRoutes/Signup"));
@@ -21,33 +23,32 @@ let Download = lazy(() => import("./Pages/NotLoginPages/DownloadPage"));
 let Help = lazy(() => import("./Pages/NotLoginPages/HelpPage"));
 
 export const details = createContext();
-export const themeContext = createContext();
-const colors = {
+export const colors = {
   dark: {
-    // balckground : "black",
     backgroundImage: "linear-gradient(to bottom, #8751f1, #000000)",
     color: "white",
   },
   light: {
-    // background : "white",
     backgroundImage: "linear-gradient(to bottom, #8751f1, #ffffff)",
     color: "black",
   },
 };
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const theme = useRecoilValue(themeState);
   const [isLogin, setIsLogin] = useState(() =>
     Boolean(localStorage.getItem("Token")),
   );
   let loginData = JSON.parse(localStorage.getItem("User"));
 
   useEffect(() => {
+    document.body.className = theme;
+    localStorage.setItem("theme",theme);
+
     Object.assign(document.body.style, colors[theme]);
   }, [theme]);
 
   return (
-    <themeContext.Provider value={{ theme, setTheme, colors }}>
       <details.Provider value={{ isLogin, setIsLogin, loginData }}>
         <div className="App michroma-regular">
           <BrowserRouter>
@@ -94,7 +95,6 @@ function App() {
           </BrowserRouter>
         </div>
       </details.Provider>
-    </themeContext.Provider>
   );
 }
 

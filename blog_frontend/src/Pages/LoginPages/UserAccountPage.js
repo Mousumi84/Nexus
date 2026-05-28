@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { updateDate } from "../../Util/DateTime";
 import { Avatar, message } from "antd";
+import PersonImage from "../../Assets/PersonImage.jpg";
+import { faPerson, faPersonDress, faPersonHalfDress } from "@fortawesome/free-solid-svg-icons";
 
 function UserAccount() {
   const [skip, setSkip] = useState(0);
@@ -124,39 +126,50 @@ function UserAccount() {
     <>
       <div id="account">
         <div id="user-account">
-          <div id="username">{user.username}</div>
+          <div id="username">{user.name}</div>
           <div id="pro">
             <div id="image-area">
-              <img
-                src={`${process.env.REACT_APP_API_URL}/${user.image?.path}`}
-                alt="User Avatar"
-              />
+              <img src={user?.image || PersonImage}  alt="User Avatar" />
             </div>
             <div id="intro">
-              <div id="name">{user.name}</div>
+              <div id="name">
+                {user?.username}{" "}
+                <span>
+                  {user?.gender === "Male" ? 
+                  ( <FontAwesomeIcon icon={faPerson} className="gender-icon" style={{ backgroundColor: "#77c1f5"}}/> ) : 
+                  user?.gender === "Female" ? 
+                  ( <FontAwesomeIcon icon={faPersonDress} className="gender-icon" style={{ backgroundColor: "#f57781"}} /> ) : 
+                  user?.gender === "Other" ? 
+                  ( <FontAwesomeIcon icon={faPersonHalfDress} className="gender-icon" style={{ backgroundColor: "#fbbc5e"}} /> ) :
+                  "-"
+                  }
+                </span>
+              </div>
+              <div id="bio" style={{ padding: "10px"}}>{user?.bio}</div>
               <div className="add">
-                <FontAwesomeIcon icon={faAt} size="l" />
-                <span>{user.email}</span>
+                <FontAwesomeIcon icon={faAt} size="xl" style={{ width: "30px" }} />
+                <span>{user?.email}</span>
               </div>
               <div className="add">
-                <FontAwesomeIcon icon={faPhone} size="l" />
-                <span>xxx-xxx-xxxx</span>
+                <FontAwesomeIcon icon={faPhone} size="xl" style={{ width: "30px" }} />
+                <span>{user?.phone ? user?.phone : "---"}</span>
               </div>
               <div className="add">
-                <FontAwesomeIcon icon={faLocationDot} size="l" />
-                <span>Xxxxxx, Yyyyyyyyyy, Zzzzzzz</span>
+                <FontAwesomeIcon icon={faLocationDot} size="xl" style={{ width: "30px" }} />
+                <span>{user?.location ? user?.location : "---"}</span>
               </div>
               <div className="add">
-                <FontAwesomeIcon icon={faInstagram} size="l" />
-                <span>Aaaaaaa</span>
+                <FontAwesomeIcon icon={faInstagram} size="xl" style={{ width: "30px" }} />
+                <span> {user?.instagram ? user?.instagram : "---"}
+                </span>
               </div>
               <div className="add">
-                <FontAwesomeIcon icon={faFacebookF} size="l" />
-                <span>Bbbbbbbb</span>
+                <FontAwesomeIcon icon={faFacebookF} size="xl" style={{ width: "30px" }} />
+                <span>{user?.facebook ? user?.facebook : "---"}</span>
               </div>
               <div className="add">
-                <FontAwesomeIcon icon={faXTwitter} size="l" />
-                <span>Ccccccc</span>
+                <FontAwesomeIcon icon={faXTwitter} size="xl" style={{ width: "30px" }} />
+                <span>{user?.twitter ? user?.twitter : "---"}</span>
               </div>
             </div>
           </div>

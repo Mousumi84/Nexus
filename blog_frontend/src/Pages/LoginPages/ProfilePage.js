@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { details, themeContext } from "../../App";
+import { colors, details } from "../../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,8 @@ import CreatePost from "../../Components/LoginComponents/CreatePost";
 import EditPost from "../../Components/LoginComponents/EditPost";
 import Follow from "../../Components/LoginComponents/Follow";
 import PersonImage from "../../Assets/PersonImage.jpg";
+import { themeState } from "../../Recoil/Atoms/ThemeAtom";
+import { useRecoilValue } from "recoil";
 
 function Profile() {
   const [clickedBlog, setClickedBlog] = useState(null);
@@ -31,7 +33,7 @@ function Profile() {
   const [loginData, setLoginData] = useState(null);
 
   const { setIsLogin } = useContext(details);
-  const { theme, colors } = useContext(themeContext);
+  const theme = useRecoilValue(themeState);
   let limit = 6;
   const navigate = useNavigate();
   let token = localStorage.getItem("Token");
@@ -268,60 +270,34 @@ console.log("not following", notFollowing,loginData);
                     loginData?.gender === "Female" ? 
                     ( <FontAwesomeIcon icon={faPersonDress} className="gender-icon" style={{ backgroundColor: "#f57781"}} /> ) : 
                     loginData?.gender === "Other" ? 
-                    ( <FontAwesomeIcon icon={faPersonHalfDress} className="gender-icon" style={{ backgroundColor: "#f57781"}} /> ) :
+                    ( <FontAwesomeIcon icon={faPersonHalfDress} className="gender-icon" style={{ backgroundColor: "#fbbc5e"}} /> ) :
                     "-"
                     }
                   </span>
                 </div>
                 <div id="bio" style={{ padding: "10px"}}>{loginData?.bio}</div>
                 <div>
-                  <FontAwesomeIcon
-                    icon={faAt}
-                    size="xl"
-                    style={{ width: "30px" }}
-                  />
+                  <FontAwesomeIcon icon={faAt} size="xl" style={{ width: "30px" }} />
                   <span>{loginData?.email}</span>
                 </div>
                 <div>
-                  <FontAwesomeIcon
-                    icon={faPhone}
-                    size="xl"
-                    style={{ width: "30px" }}
-                  />
+                  <FontAwesomeIcon icon={faPhone} size="xl" style={{ width: "30px" }} />
                   <span>{loginData?.phone ? loginData?.phone : "---"}</span>
                 </div>
                 <div>
-                  <FontAwesomeIcon
-                    icon={faLocationDot}
-                    size="xl"
-                    style={{ width: "30px" }}
-                  />
+                  <FontAwesomeIcon icon={faLocationDot} size="xl" style={{ width: "30px" }} />
                   <span>{loginData?.location ? loginData?.location : "---"}</span>
                 </div>
                 <div>
-                  <FontAwesomeIcon
-                    icon={faInstagram}
-                    size="xl"
-                    style={{ width: "30px" }}
-                  />
-                  <span>
-                    {loginData?.instagram ? loginData?.instagram : "---"}
-                  </span>
+                  <FontAwesomeIcon icon={faInstagram} size="xl" style={{ width: "30px" }} />
+                  <span> {loginData?.instagram ? loginData?.instagram : "---"}</span>
                 </div>
                 <div>
-                  <FontAwesomeIcon
-                    icon={faFacebookF}
-                    size="xl"
-                    style={{ width: "30px" }}
-                  />
+                  <FontAwesomeIcon icon={faFacebookF} size="xl" style={{ width: "30px" }} />
                   <span>{loginData?.facebook ? loginData?.facebook : "---"}</span>
                 </div>
                 <div>
-                  <FontAwesomeIcon
-                    icon={faXTwitter}
-                    size="xl"
-                    style={{ width: "30px" }}
-                  />
+                  <FontAwesomeIcon icon={faXTwitter} size="xl" style={{ width: "30px" }} />
                   <span>{loginData?.twitter ? loginData?.twitter : "---"}</span>
                 </div>
               </div>
@@ -439,7 +415,7 @@ console.log("not following", notFollowing,loginData);
 
         {followerPop && (
           <div id="follower" className="follow-content">
-            <div className="follow-box" style={colors[theme]}>
+            <div className="follow-box" style={colors[theme]}>  
               <div className="follow">
                 <h1>Followers</h1>
                 <span

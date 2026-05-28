@@ -1,11 +1,13 @@
 import { Avatar } from "antd";
 import { useContext, useState } from "react";
-import { details, themeContext } from "../../App";
+import { colors, details } from "../../App";
 import { PlusOutlined } from "@ant-design/icons";
 import { Image, Upload } from "antd";
 import ImgCrop from 'antd-img-crop';
 import { Input, message } from "antd";
 import axios from "axios";
+import { themeState } from "../../Recoil/Atoms/ThemeAtom";
+import { useRecoilValue } from "recoil";
 const { TextArea } = Input;
 
 const getBase64 = (file) =>
@@ -22,7 +24,7 @@ const getBase64 = (file) =>
 
 function CreatePost({ setIsCreatePost }) {
   let { loginData } = useContext(details);
-  let { theme, colors } = useContext(themeContext);
+  const theme = useRecoilValue(themeState);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState([]);

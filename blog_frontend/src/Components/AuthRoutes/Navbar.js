@@ -1,15 +1,17 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { details, themeContext } from "../../App";
+import { details } from "../../App";
 import axios from "axios";
 import { Avatar, message } from "antd";
 import PersonImage from "../../Assets/PersonImage.jpg";
+import { useRecoilState } from "recoil";
+import { themeState } from "../../Recoil/Atoms/ThemeAtom";
 
 export function Navbar() {
   const [searchedUser, setSearchedUser] = useState([]);
   const [srchBox, setSrchBox] = useState(false);
   const { isLogin } = useContext(details);
-  const { theme, setTheme } = useContext(themeContext);
+  const [theme, setTheme] = useRecoilState(themeState);
   const searchInputRef = useRef(null);
   const searchBoxRef = useRef(null);
   let navigate = useNavigate();

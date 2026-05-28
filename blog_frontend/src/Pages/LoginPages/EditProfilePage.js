@@ -88,6 +88,8 @@ function EditProfile() {
       isValidationError({ email: "", name: "", username: "" });
 
       try {
+        console.log(profileImg);
+        
         const formDataToSend = new FormData();
 
         formDataToSend.append("userId", initialFormData.userId);
@@ -113,15 +115,15 @@ function EditProfile() {
           headers: { Authorization: token },
         });
 
-        console.log(response.data.data);
+        console.log(response.data);
 
         if (response.data.status !== 200) {
-          message.error(response.data.error);
+          message.error(response.data.message);
           return;
         }
 
         message.success("Profile updated successfully!");
-        navigate(-1);
+        navigate("/profile");
         localStorage.setItem("User", JSON.stringify(response.data.data));
       } catch (err) {
         console.log(err);

@@ -71,9 +71,12 @@ const registerController = async (req,res) => {
 }
 
 const editProfileController = async (req,res) => {
-    console.log("edit",req.body);
-    let image=req?.file?.path || null;
-    console.log(image);
+    console.log("edit",req.body,req.file);
+    let image;
+    if (req.file) {
+        image=req?.file?.path;
+        console.log(image);
+    }
 
     const {userId, name, username, email, phone, bio, gender, location, instagram, facebook, twitter} = req.body;
 
