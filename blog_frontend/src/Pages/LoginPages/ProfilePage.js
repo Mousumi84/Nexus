@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { colors, details } from "../../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -93,7 +93,7 @@ function Profile() {
   };
 
   // Fetch My Blogs
-  const fetchMyBlogsData = async () => {
+  const fetchMyBlogsData = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios({
@@ -117,11 +117,12 @@ function Profile() {
     } catch (error) {
       message.error("An error occured to fetch the blogs");
       setHasMore(false);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, [skip, token]);
 
-  const handelScroll = () => {
+  const handelScroll = useCallback(() => {
     if (loading || !hasMore) return;
 
     if (
@@ -131,7 +132,7 @@ function Profile() {
     ) {
       setSkip(skip + limit);
     }
-  };
+  }, [loading, hasMore, skip, limit]);
 
   // Follow - Unfollow
   const btnClick = async (e) => {
@@ -228,17 +229,19 @@ function Profile() {
       } catch (error) {}
     };
 
-    fetchNotFollowingUsers();
-  }, []);
+    if (token) {
+      fetchNotFollowingUsers();
+    }
+  }, [token]);
 
   useEffect(() => {
     fetchMyBlogsData();
-  }, [skip]);
+  }, [fetchMyBlogsData]);
 
   useEffect(() => {
     window.addEventListener("scroll", handelScroll);
     return () => window.removeEventListener("scroll", handelScroll);
-  }, [loading, hasMore]);
+  }, [handelScroll]);
 
   console.log("not following", notFollowing, loginData);
 
@@ -447,7 +450,7 @@ function Profile() {
                       style={{ display: "flex", justifyContent: "center" }}
                     >
                       <div
-                        className="blog-txt"
+                        className="blog-txt aladin-regular"
                         style={{
                           backgroundColor: "#8651f16f",
                           height: "80%",

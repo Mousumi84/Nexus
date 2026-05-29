@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { details } from "../../App";
 import { Avatar, message } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +18,7 @@ function Dashboard() {
   let limit = 6;
   let token = localStorage.getItem("Token");
 
-  const fetchAllBlogsData = async () => {
+  const fetchAllBlogsData = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios({
@@ -42,13 +42,14 @@ function Dashboard() {
     } catch (error) {
       message.error("An error occured");
       setHasMore(false);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  },[skip, token]);
 
   useEffect(() => {
     fetchAllBlogsData();
-  }, [skip]);
+  }, [fetchAllBlogsData, skip]);
 
   // Fetch not following users list
   useEffect(() => {
@@ -68,7 +69,7 @@ function Dashboard() {
     };
 
     fetchNotFollowingUsers();
-  }, []);
+  }, [token, loginData.userId]);
 
   // Follow - Unfollow
   const btnClick = async (e) => {
@@ -96,22 +97,18 @@ function Dashboard() {
     }
   };
 
-  const handelScroll = () => {
-    if (loading || !hasMore) return;
+  const handelScroll = useCallback(() => {
+    if (loading || !hasMore) return; 
 
-    if (
-      document.documentElement.scrollTop + window.innerHeight >=
-        document.documentElement.scrollHeight - 200 &&
-      hasMore
-    ) {
+    if (document.documentElement.scrollTop + window.innerHeight >= document.documentElement.scrollHeight - 200 && hasMore) {
       setSkip(skip + limit);
     }
-  };
+  }, [loading, hasMore, limit, skip]);
 
   useEffect(() => {
     window.addEventListener("scroll", handelScroll);
     return () => window.removeEventListener("scroll", handelScroll);
-  }, [loading, hasMore]);
+  }, [handelScroll]);
 
   return (
     <>

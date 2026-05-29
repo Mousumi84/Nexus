@@ -18,9 +18,24 @@ body {
 .michroma-regular {
     font-family: "Michroma", serif;
 }
+.monoton-regular {
+  font-family: "Monoton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 .meddon-regular {
     font-family: "Meddon", cursive;
 }
+.aladin-regular {
+  font-family: "Aladin", system-ui;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 50px;
+  word-spacing: 8px;
+  letter-spacing: 4px;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
 
 #viewport {
 

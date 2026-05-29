@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
@@ -13,7 +13,7 @@ function Follow({ endpointA, endpointB, button }) {
   let token = localStorage.getItem("Token");
 
   // Follower List - Following List
-  const fetchFollowList = async (e) => {
+  const fetchFollowList = useCallback(async (e) => {
     setIsLoading(true);
 
     try {
@@ -49,14 +49,16 @@ function Follow({ endpointA, endpointB, button }) {
         setListB(response.data.data);
       } catch (error) {
         message.error("Can't fetch follow users, please try after sometime");
+      } finally {
+        setIsLoading(false);
       }
     }
     setIsLoading(false);
-  };
+  },  [endpointA, endpointB, token, button]);
 
   useEffect(() => {
     fetchFollowList();
-  }, []);
+  }, [fetchFollowList]);
 
   // Follow - Unfollow
   const btnClick = async (e) => {

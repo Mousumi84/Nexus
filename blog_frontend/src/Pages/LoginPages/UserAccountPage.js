@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { updateDate } from "../../Util/DateTime";
 import { Avatar, message } from "antd";
@@ -59,7 +59,7 @@ function UserAccount() {
     }
   };
 
-  const fetchFollowingUser = async () => {
+  const fetchFollowingUser = useCallback(async () => {
     try {
       const response = await axios({
         url: `${process.env.REACT_APP_API_URL}/follow/following-user-list`,
@@ -73,9 +73,9 @@ function UserAccount() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [userId, token]);
 
-  const PostFollowingUser = async () => {
+  const PostFollowingUser = useCallback(async () => {
     if (!isFollowingUser) return; // Only fetch if following
 
     setLoading(true);
@@ -101,13 +101,14 @@ function UserAccount() {
     } catch (error) {
       message.error("An error occured to fetch the blogs of the user");
       setHasMore(false);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, [isFollowingUser, userId, skip, token]);
 
   useEffect(() => {
     fetchFollowingUser();
-  }, [userId, token]);
+  }, [fetchFollowingUser]);
 
   useEffect(() => {
     if (isFollowingUser) {
@@ -115,9 +116,9 @@ function UserAccount() {
     } else {
       setBlogList([]); // Clear posts if not following
     }
-  }, [skip, isFollowingUser, userId, token]);
+  }, [PostFollowingUser, isFollowingUser]);
 
-  const handelScroll = () => {
+  const handelScroll = useCallback(() => {
     if (loading || !hasMore) return;
 
     if (
@@ -127,12 +128,12 @@ function UserAccount() {
     ) {
       setSkip(skip + limit);
     }
-  };
+  }, [loading, hasMore, skip, limit]);
 
   useEffect(() => {
     window.addEventListener("scroll", handelScroll);
     return () => window.removeEventListener("scroll", handelScroll);
-  }, [loading, hasMore]);
+  }, [handelScroll]);
 
   return (
     <>

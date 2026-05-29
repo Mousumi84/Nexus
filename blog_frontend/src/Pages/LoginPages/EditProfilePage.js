@@ -49,7 +49,6 @@ function EditProfile() {
 
   // ✅ Handle input change
   const handleChange = (e) => {
-    console.log(e.target.name, e.target.value);
     setInitialFormData({ ...initialFormData, [e.target.name]: e.target.value });
   };
 
@@ -88,8 +87,6 @@ function EditProfile() {
       isValidationError({ email: "", name: "", username: "" });
 
       try {
-        console.log(profileImg);
-        
         const formDataToSend = new FormData();
 
         formDataToSend.append("userId", initialFormData.userId);
