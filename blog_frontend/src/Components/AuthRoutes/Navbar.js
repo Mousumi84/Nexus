@@ -3,9 +3,9 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { details } from "../../App";
 import axios from "axios";
 import { Avatar, message } from "antd";
-import PersonImage from "../../Assets/PersonImage.jpg";
 import { useRecoilState } from "recoil";
 import { themeState } from "../../Recoil/Atoms/ThemeAtom";
+import PersonImage from "../../Assets/PersonImage.jpg";
 
 export function Navbar() {
   const [searchedUser, setSearchedUser] = useState([]);
