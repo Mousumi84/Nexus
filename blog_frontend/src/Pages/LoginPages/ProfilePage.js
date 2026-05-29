@@ -23,7 +23,7 @@ import { Avatar, Tooltip, message, Modal } from "antd";
 import CreatePost from "../../Components/LoginComponents/CreatePost";
 import EditPost from "../../Components/LoginComponents/EditPost";
 import Follow from "../../Components/LoginComponents/Follow";
-import PersonImage from "../../Assets/PersonImage.jpg";
+import Tem from "../../Assets/tem.jpg";
 import { themeState } from "../../Recoil/Atoms/ThemeAtom";
 import { useRecoilValue } from "recoil";
 
@@ -278,10 +278,7 @@ function Profile() {
           </div>
           <div id="end">
             <div id="image-area">
-              <img
-                src={loginData?.image || PersonImage}
-                alt={loginData?.username}
-              />
+              <img src={loginData?.image || Tem} alt={loginData?.username} />
             </div>
             <div id="left">
               <div id="intro">
@@ -394,10 +391,7 @@ function Profile() {
                     }
                   >
                     <div id="image-area">
-                      <img
-                        src={user.image ? user.image : PersonImage}
-                        alt="user"
-                      />
+                      <img src={user.image ? user.image : Tem} alt="user" />
                     </div>
                     <div className="name">{user.name}</div>
                   </div>

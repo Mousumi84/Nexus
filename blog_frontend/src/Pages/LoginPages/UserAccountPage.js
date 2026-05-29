@@ -16,7 +16,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { updateDate } from "../../Util/DateTime";
 import { Avatar, message } from "antd";
-import PersonImage from "../../Assets/PersonImage.jpg";
+import Tem from "../../Assets/tem.jpg";
 import {
   faPerson,
   faPersonDress,
@@ -142,7 +142,7 @@ function UserAccount() {
           <div id="username">{user.name}</div>
           <div id="pro">
             <div id="image-area">
-              <img src={user?.image || PersonImage} alt="User Avatar" />
+              <img src={user?.image || Tem} alt="User Avatar" />
             </div>
             <div id="intro">
               <div id="name">

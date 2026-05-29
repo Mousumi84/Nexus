@@ -5,7 +5,7 @@ import { Avatar, message } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { updateDate } from "../../Util/DateTime";
-import PersonImage from "../../Assets/PersonImage.jpg";
+import Tem from "../../Assets/tem.jpg";
 
 function Dashboard() {
   const [skip, setSkip] = useState(0);
@@ -45,7 +45,7 @@ function Dashboard() {
     } finally {
       setLoading(false);
     }
-  },[skip, token]);
+  }, [skip, token]);
 
   useEffect(() => {
     fetchAllBlogsData();
@@ -98,9 +98,13 @@ function Dashboard() {
   };
 
   const handelScroll = useCallback(() => {
-    if (loading || !hasMore) return; 
+    if (loading || !hasMore) return;
 
-    if (document.documentElement.scrollTop + window.innerHeight >= document.documentElement.scrollHeight - 200 && hasMore) {
+    if (
+      document.documentElement.scrollTop + window.innerHeight >=
+        document.documentElement.scrollHeight - 200 &&
+      hasMore
+    ) {
       setSkip(skip + limit);
     }
   }, [loading, hasMore, limit, skip]);
@@ -167,17 +171,13 @@ function Dashboard() {
         </div>
 
         <div id="suggestion">
-          <h5>Discover People</h5>
+          <h5>Connect</h5>
           <div id="sgtn">
             {notFollowing.map((user) => {
               return (
                 <div className="sug-box" key={user._id} id={user._id}>
                   <div id="image-area">
-                    {/* <img src={`${user.image}`} alt="user" /> */}
-                    <Avatar
-                      src={user.image ? user.image : PersonImage}
-                      id="avatar"
-                    />
+                    <Avatar src={user.image ? user.image : Tem} id="avatar" />
                   </div>
                   <div id="name-btn-area">
                     <div className="name">{user.name}</div>
@@ -196,11 +196,7 @@ function Dashboard() {
               return (
                 <div className="cn-box" key={user._id} id={user._id}>
                   <div id="image-area">
-                    {/* <img src={`${user.image}`} alt="user" /> */}
-                    <Avatar
-                      src={user.image ? user.image : PersonImage}
-                      id="avatar"
-                    />
+                    <Avatar src={user.image ? user.image : Tem} id="avatar" />
                   </div>
                   <div className="name">{user.name}</div>
                 </div>

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import PersonImage from "../../Assets/PersonImage.jpg";
+import Tem from "../../Assets/tem.jpg";
 
 function Follow({ endpointA, endpointB, button }) {
   const [followList, setFollowList] = useState([]);
@@ -13,30 +13,13 @@ function Follow({ endpointA, endpointB, button }) {
   let token = localStorage.getItem("Token");
 
   // Follower List - Following List
-  const fetchFollowList = useCallback(async (e) => {
-    setIsLoading(true);
+  const fetchFollowList = useCallback(
+    async (e) => {
+      setIsLoading(true);
 
-    try {
-      const response = await axios({
-        url: endpointA,
-        method: "GET",
-        headers: { Authorization: token },
-      });
-
-      if (response.data.status !== 200) {
-        message.error(response.data.message);
-        return;
-      }
-
-      setFollowList(response.data.data);
-    } catch (error) {
-      message.error("Can't fetch follow users, please try after sometime");
-    }
-
-    if (button === "Follower" && endpointB) {
       try {
         const response = await axios({
-          url: endpointB,
+          url: endpointA,
           method: "GET",
           headers: { Authorization: token },
         });
@@ -46,15 +29,35 @@ function Follow({ endpointA, endpointB, button }) {
           return;
         }
 
-        setListB(response.data.data);
+        setFollowList(response.data.data);
       } catch (error) {
         message.error("Can't fetch follow users, please try after sometime");
-      } finally {
-        setIsLoading(false);
       }
-    }
-    setIsLoading(false);
-  },  [endpointA, endpointB, token, button]);
+
+      if (button === "Follower" && endpointB) {
+        try {
+          const response = await axios({
+            url: endpointB,
+            method: "GET",
+            headers: { Authorization: token },
+          });
+
+          if (response.data.status !== 200) {
+            message.error(response.data.message);
+            return;
+          }
+
+          setListB(response.data.data);
+        } catch (error) {
+          message.error("Can't fetch follow users, please try after sometime");
+        } finally {
+          setIsLoading(false);
+        }
+      }
+      setIsLoading(false);
+    },
+    [endpointA, endpointB, token, button],
+  );
 
   useEffect(() => {
     fetchFollowList();
@@ -128,7 +131,7 @@ function Follow({ endpointA, endpointB, button }) {
                   }
                 >
                   <div className="image-area">
-                    <img src={flw.image || PersonImage} alt={flw.name[0]} />
+                    <img src={flw.image || Tem} alt={flw.name[0]} />
                   </div>
                   <div className="usr">
                     <div className="usr-nm">{flw.name}</div>
