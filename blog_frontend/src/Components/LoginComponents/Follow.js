@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
-import Tem from "../../Assets/tem.jpg";
+import Tem from "../../assets/tem.jpg";
 
 function Follow({ endpointA, endpointB, button }) {
   const [followList, setFollowList] = useState([]);

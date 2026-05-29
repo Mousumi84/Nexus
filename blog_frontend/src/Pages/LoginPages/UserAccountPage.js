@@ -16,7 +16,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { updateDate } from "../../Util/DateTime";
 import { Avatar, message } from "antd";
-import Tem from "../../Assets/tem.jpg";
+import Tem from "../../assets/tem.jpg";
 import {
   faPerson,
   faPersonDress,

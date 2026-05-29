@@ -5,7 +5,7 @@ import axios from "axios";
 import { Avatar, message } from "antd";
 import { useRecoilState } from "recoil";
 import { themeState } from "../../Recoil/Atoms/ThemeAtom";
-import Tem from "../../Assets/tem.jpg";
+import Tem from "../../assets/tem.jpg";
 
 export function Navbar() {
   const [searchedUser, setSearchedUser] = useState([]);
@@ -179,9 +179,7 @@ export function Navbar() {
                   onClick={() => clickProfile(user)}
                 >
                   <Avatar
-                    src={
-                      <img src={user.image?.path || Tem} alt="avatar" />
-                    }
+                    src={<img src={user.image?.path || Tem} alt="avatar" />}
                   />
                   <div>{user.name}</div>
                 </div>

@@ -23,7 +23,7 @@ import { Avatar, Tooltip, message, Modal } from "antd";
 import CreatePost from "../../Components/LoginComponents/CreatePost";
 import EditPost from "../../Components/LoginComponents/EditPost";
 import Follow from "../../Components/LoginComponents/Follow";
-import Tem from "../../Assets/tem.jpg";
+import Tem from "../../assets/tem.jpg";
 import { themeState } from "../../Recoil/Atoms/ThemeAtom";
 import { useRecoilValue } from "recoil";
 
