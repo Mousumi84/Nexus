@@ -27,7 +27,7 @@ const parmanentlyDelete = require("./Cron.js");
 //middleware  
 app.use(cors( {
     origin: [
-        'https://nexus-five-chi.vercel.app',
+        'https://nexus-blush-theta-34.vercel.app',
         'http://localhost:3000'
     ],
     credentials: true
